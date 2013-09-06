@@ -321,6 +321,7 @@ class S3StreamWrapper
 
 		$response = $this->client($protocol)->create_object($bucket, $object_name, array(
 			'body' => $this->buffer,
+			'acl' => 'public-read'
 		));
 
 		$this->seek_position = 0;
