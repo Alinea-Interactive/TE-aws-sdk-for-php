@@ -318,10 +318,15 @@ class S3StreamWrapper
 		}
 
 		list($protocol, $bucket, $object_name) = $this->parse_path($this->path);
+		
+		$extension = explode('.', $object_name);
+		$extension = array_pop($extension);
+		$mime_type = CFMimeTypes::get_mimetype($extension);		
 
 		$response = $this->client($protocol)->create_object($bucket, $object_name, array(
 			'body' => $this->buffer,
-			'acl' => 'public-read'
+			'acl' => 'public-read',
+			'contentType' => $mime_type
 		));
 
 		$this->seek_position = 0;
