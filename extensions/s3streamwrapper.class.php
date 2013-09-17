@@ -324,9 +324,10 @@ class S3StreamWrapper
 		$mime_type = CFMimeTypes::get_mimetype($extension);		
 
 		$response = $this->client($protocol)->create_object($bucket, $object_name, array(
-			'body' => $this->buffer,
-			'acl' => 'public-read',
-			'contentType' => $mime_type
+			'body' 		=> $this->buffer,
+			'acl' 		=> 'public-read',
+			'contentType' 	=> $mime_type,
+			'Cache-Control' => 'max-age=864000'
 		));
 
 		$this->seek_position = 0;
